@@ -1,6 +1,4 @@
-﻿
-
-namespace MetaCombatSystem.Skills
+﻿namespace MetaCombatSystem.Skills
 {
     public abstract class SkillCost : SkillComponent
     {

@@ -2,7 +2,7 @@
     "name": "MetaCombatSystem",
     "rootNamespace": "MetaCombatSystem",
     "references": [
-        "FeatherForge"
+        "GUID:9dba82578a6ed1942bbca5718da3b9cf"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

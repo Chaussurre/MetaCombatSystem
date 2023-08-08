@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.chaussurre.featherforge": {
-      "version": "https://github.com/Chaussurre/FeatherForge.git",
+    "com.chaussurre.orbitresonance": {
+      "version": "https://github.com/Chaussurre/Orbit-Resonance.git?path=/Assets/OrbitResonance#dev",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4d6b0a873c7549b5fd022b319983bd08ba10814f"
+      "hash": "40f5ecf124de44d08ee1b01544084f24e203d0e4"
     },
     "com.unity.2d.animation": {
       "version": "7.0.5",

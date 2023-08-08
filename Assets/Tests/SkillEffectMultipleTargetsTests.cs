@@ -8,8 +8,8 @@ namespace MetaCombatSystem.Skills.Tests
     {
         Skill skill;
         MockSkillEffectMultipleTargets skillEffect;
-        SkillTarget skillTarget1;
-        SkillTarget skillTarget2;
+        CombatTarget combatTarget1;
+        CombatTarget combatTarget2;
 
         [SetUp]
         public void SetUp()
@@ -22,10 +22,10 @@ namespace MetaCombatSystem.Skills.Tests
 
             skillEffect = new GameObject("skill effect").AddComponent<MockSkillEffectMultipleTargets>();
             skillEffect.FirstAndLastTargets = new(0, 2);
-            skill.Effects = new() { skillEffect };
+            skill.Components = new() { skillEffect };
 
-            skillTarget1 = new GameObject("target 1").AddComponent<SkillTarget>();
-            skillTarget2 = new GameObject("target 2").AddComponent<SkillTarget>();
+            combatTarget1 = new GameObject("target 1").AddComponent<CombatTarget>();
+            combatTarget2 = new GameObject("target 2").AddComponent<CombatTarget>();
         }
 
         [TearDown]
@@ -33,28 +33,28 @@ namespace MetaCombatSystem.Skills.Tests
         {
             Object.DestroyImmediate(skill.gameObject);
             Object.DestroyImmediate(skillEffect.gameObject);
-            Object.DestroyImmediate(skillTarget1.gameObject);
-            Object.DestroyImmediate(skillTarget2.gameObject);
+            Object.DestroyImmediate(combatTarget1.gameObject);
+            Object.DestroyImmediate(combatTarget2.gameObject);
         }
 
         [Test]
         public void TriggerSkill()
         {
-            Assert.IsTrue(skill.AddTarget(skillTarget1), "skill should be able to add a first target");
-            Assert.IsTrue(skill.AddTarget(skillTarget2), "skill should be able to add a second target");
+            Assert.IsTrue(skill.AddTarget(combatTarget1), "skill should be able to add a first target");
+            Assert.IsTrue(skill.AddTarget(combatTarget2), "skill should be able to add a second target");
 
             Assert.IsTrue(skill.ReadyToTrigger(), "Skill should be ready to trigger on two targets");
 
             skill.Trigger();
 
             Assert.IsFalse(skillEffect.TargetAreSame, "the two targets should be different");
-            Assert.AreSame(skillTarget1, skillEffect.LastTarget, "Last target should be the first target");
+            Assert.AreSame(combatTarget1, skillEffect.LastTarget, "Last target should be the first target");
         }
 
         [Test]
         public void NotEnoughTargets()
         {
-            skill.AddTarget(skillTarget1);
+            skill.AddTarget(combatTarget1);
 
             Assert.IsFalse(skill.ReadyToTrigger(), "Skill shouldn't be able to trigger on one target");
 
@@ -67,7 +67,7 @@ namespace MetaCombatSystem.Skills.Tests
         private class MockSkillEffectMultipleTargets : SkillEffectMultipleTargets
         {
             public bool TargetAreSame;
-            public SkillTarget LastTarget;
+            public CombatTarget LastTarget;
 
             public override void SetUpEffect()
             {
@@ -79,7 +79,7 @@ namespace MetaCombatSystem.Skills.Tests
                 return 2;
             }
 
-            protected override void EffectTrigger(SkillTarget target, int i)
+            protected override void EffectTrigger(CombatTarget target, int i)
             {
                 if (i == 0)
                     LastTarget = target;

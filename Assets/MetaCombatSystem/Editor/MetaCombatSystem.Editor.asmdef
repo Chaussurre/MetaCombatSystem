@@ -2,8 +2,8 @@
     "name": "MetaCombatSystem.Editor",
     "rootNamespace": "MetaCombatSystem.Editor",
     "references": [
-        "GUID:98165ee7316a5f844982654214ac81ee",
-        "GUID:9dba82578a6ed1942bbca5718da3b9cf"
+        "GUID:9dba82578a6ed1942bbca5718da3b9cf",
+        "GUID:98165ee7316a5f844982654214ac81ee"
     ],
     "includePlatforms": [
         "Editor"

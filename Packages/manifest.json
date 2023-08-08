@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.chaussurre.featherforge": "https://github.com/Chaussurre/FeatherForge.git",
+    "com.chaussurre.orbitresonance": "https://github.com/Chaussurre/Orbit-Resonance.git?path=/Assets/OrbitResonance#dev",
     "com.unity.collab-proxy": "1.15.16",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.13",

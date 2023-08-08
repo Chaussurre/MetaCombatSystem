@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using FeatherForge;
+using OrbitResonance;
 
 namespace MetaCombatSystem.ResourceManagement
 {

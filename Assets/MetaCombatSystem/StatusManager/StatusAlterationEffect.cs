@@ -1,4 +1,4 @@
-using FeatherForge;
+using OrbitResonance;
 using UnityEngine;
 
 namespace MetaCombatSystem.StatusManagement

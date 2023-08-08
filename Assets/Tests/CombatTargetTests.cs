@@ -1,17 +1,16 @@
 ﻿using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 using System.Collections.Generic;
 
 namespace MetaCombatSystem.Skills.Tests
 {
-    public class SkillTargetTests
+    public class CombatTargetTests
     {
         [Test]
         public void GetTargets()
         {
             var gameObject = new GameObject("Target");
-            var skillTarget = gameObject.AddComponent<SkillTarget>();
+            var skillTarget = gameObject.AddComponent<CombatTarget>();
             var targetType1 = gameObject.AddComponent<SomeBehavior>();
             var targetType2 = gameObject.AddComponent<AnotherBehavior>();
             skillTarget.TargetTypes = new List<Behaviour> { targetType1, targetType2 };
