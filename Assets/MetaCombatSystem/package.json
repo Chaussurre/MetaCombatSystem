@@ -1,0 +1,14 @@
+{
+  "name": "com.chaussurre.metacombatsystem",
+  "version": "1.0.0",
+  "displayName": "MetaCombatSystem",
+  "description": "Combat system system",
+  "unity": "2019.1",
+  "dependencies": {
+    "com.chaussurre.featherforge" : "https://github.com/Chaussurre/FeatherForge.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chaussurre/MetaCombatSystem.git"
+  }
+}

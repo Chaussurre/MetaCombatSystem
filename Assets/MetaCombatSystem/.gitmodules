@@ -1,0 +1,3 @@
+[submodule "FeatherForge"]
+	path = FeatherForge
+	url = https://github.com/Chaussurre/FeatherForge.git
