@@ -27,8 +27,10 @@ namespace MetaCombatSystem.StatusManagement
 
         public StatusAlteration StatusAlteration;
 
+        [RemoteReadable]
         public int Stacks;
         public bool HasMax;
+        [RemoteReadable]
         public int MaxStacks;
 
         public DataWatcher<StatusStackChange> DataWatcher;
