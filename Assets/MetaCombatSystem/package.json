@@ -1,14 +1,14 @@
 {
   "name": "com.chaussurre.metacombatsystem",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "displayName": "MetaCombatSystem",
   "description": "Combat system system",
   "unity": "2019.1",
   "dependencies": {
-    "com.chaussurre.featherforge" : "https://github.com/Chaussurre/FeatherForge.git"
+    "com.chaussurre.orbitresonance" : "https://github.com/Chaussurre/Orbit-Resonance.git?path=/Assets/OrbitResonance"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Chaussurre/MetaCombatSystem.git"
+    "url": "https://github.com/Chaussurre/MetaCombatSystem.git?path=/Assets/MetaCombatSystem"
   }
 }
