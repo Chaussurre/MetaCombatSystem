@@ -47,11 +47,17 @@ namespace MetaCombatSystem.Skills
         /// </summary>
         public void Trigger(SkillCast skillCast)
         {
+            foreach (var component in Components)
+                component.SetUpEffect();
+
             if (!ReadyToTrigger(skillCast))
                 return;
 
-            foreach (var effect in Components)
-                effect.TriggerComponent(skillCast);
+            foreach (var component in Components)
+                component.TriggerComponent(skillCast);
+
+            foreach (var component in Components)
+                component.FinishEffect();
         }
 
 

@@ -26,11 +26,6 @@ namespace MetaCombatSystem.Skills
         /// </summary>
         public bool requireAllTargets;
 
-        /// <summary>
-        /// this method is called everytime before the skill trigger any skilleffects.
-        /// </summary>
-        public virtual void SetUpEffect() { }
-
         public override bool CanSkillBeTriggered(SkillCast skillCast)
         {
             if (requireAllTargets && skillCast.TargetCount <= FirstAndLastTargets.y)

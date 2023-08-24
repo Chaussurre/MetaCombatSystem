@@ -92,16 +92,42 @@ namespace MetaCombatSystem.Skills.Tests
             Assert.IsFalse(skill.ReadyToTrigger(skillCast), "Skill should not be ready to trigger on two targets");
         }
 
+        [Test]
+        public void SkillSeveralCasts()
+        {
+            skillCast.SetTarget(skillTarget1, 0);
+
+            //first cast
+            Assert.IsTrue(skill.ReadyToTrigger(skillCast), "Skill should be ready to trigger on one target");
+            Assert.IsFalse(skillEffect.finishedEffect);
+            skill.Trigger(skillCast);
+            Assert.IsTrue(skillEffect.finishedEffect);
+            Assert.AreEqual(1, skillEffect.TriggerCount, "EffectTrigger should be called once");
+
+            //second cast
+            Assert.IsTrue(skill.ReadyToTrigger(skillCast), "Skill should be ready to trigger on one target");
+            skill.Trigger(skillCast);
+            Assert.IsTrue(skillEffect.finishedEffect);
+            Assert.AreEqual(1, skillEffect.TriggerCount, "EffectTrigger should be called once");
+        }
+
         // Define a mock SkillEffectMonoTarget class for testing
         private class MockSkillEffect : SkillEffect
         {
             public int TriggerCount = 0;
-            public CombatTarget LastTriggeredTarget;
+            public CombatTarget LastTriggeredTarget = null;
+            public bool finishedEffect = false;
 
             public override void SetUpEffect()
             {
                 TriggerCount = 0;
                 LastTriggeredTarget = null;
+                finishedEffect = false;
+            }
+
+            public override void FinishEffect()
+            {
+                finishedEffect = true;
             }
 
             public override bool IsTargetValid(CombatTarget target)
