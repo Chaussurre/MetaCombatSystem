@@ -7,7 +7,7 @@ namespace MetaCombatSystem.ResourceManagement
 {
     public interface IResourceModification<TResourceData> where TResourceData : struct
     {
-        public void Initialize(TResourceData data, Resource resource, int delta, ICombatSystemSource source, List<string> tags, CombatTarget Self);
+        public void Initialize(TResourceData data, Resource resource, int delta, ICombatSystemSource source, List<CombatTag> tags, CombatTarget Self);
 
         public TResourceData GetResultData();
     }
@@ -42,7 +42,7 @@ namespace MetaCombatSystem.ResourceManagement
             return index != -1;
         }
 
-        public TResourceModification ChangeResource(Resource resource, int delta, ICombatSystemSource source, List<string> tags)
+        public TResourceModification ChangeResource(Resource resource, int delta, ICombatSystemSource source, List<CombatTag> tags)
         {
             var index = getResourceIndex(resource);
             if (index == -1)
@@ -67,7 +67,7 @@ namespace MetaCombatSystem.ResourceManagement
             return modification;
         }
 
-        public TResourceModification PredictChangeResource(Resource resource, int delta, ICombatSystemSource source, List<string> tags)
+        public TResourceModification PredictChangeResource(Resource resource, int delta, ICombatSystemSource source, List<CombatTag> tags)
         {
             var index = getResourceIndex(resource);
             if (index == -1)

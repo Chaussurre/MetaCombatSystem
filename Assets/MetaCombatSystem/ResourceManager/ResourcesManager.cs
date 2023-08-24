@@ -28,9 +28,9 @@ namespace MetaCombatSystem.ResourceManagement
             public float multiplier;
             public ICombatSystemSource source;
             public CombatTarget Self;
-            public List<string> tags;
+            public List<CombatTag> tags;
 
-            public void Initialize(ResourceData data, Resource resource, int delta, ICombatSystemSource source, List<string> tags, CombatTarget Self)
+            public void Initialize(ResourceData data, Resource resource, int delta, ICombatSystemSource source, List<CombatTag> tags, CombatTarget Self)
             {
                 originalValue = data.Value;
                 originalMax = data.MaxValue;

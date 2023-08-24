@@ -10,19 +10,9 @@ namespace MetaCombatSystem.Skills.Editor
         {
             var effect = target as SkillEffect;
 
-            IsSetToASkill(effect);
             AreTargetsCorrect(effect);
 
             base.OnInspectorGUI();
-        }
-
-        protected void IsSetToASkill(SkillEffect effect)
-        {
-            if (effect.Skill)
-                return;
-
-            var message = "This effect is not attributed to any skill. It will do nothing.";
-            EditorGUILayout.HelpBox(message, MessageType.Warning);
         }
 
         protected void AreTargetsCorrect(SkillEffect effect)
@@ -40,13 +30,6 @@ namespace MetaCombatSystem.Skills.Editor
             if (effect.FirstAndLastTargets.x > effect.FirstAndLastTargets.y)
             {
                 var message = "First target cannot be a higher index than last";
-                EditorGUILayout.HelpBox(message, MessageType.Error);
-                return;
-            }
-
-            if (effect.FirstAndLastTargets.x == -1 && effect.Skill.SelfTarget == null)
-            {
-                var message = "This effect reference the self target, but the field self target is not set";
                 EditorGUILayout.HelpBox(message, MessageType.Error);
                 return;
             }

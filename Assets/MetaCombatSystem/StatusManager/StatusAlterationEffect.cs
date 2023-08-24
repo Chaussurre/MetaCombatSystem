@@ -1,4 +1,5 @@
 using OrbitResonance;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MetaCombatSystem.StatusManagement
@@ -12,6 +13,7 @@ namespace MetaCombatSystem.StatusManagement
             public int? MaxStacks;
             public int Delta;
             public ICombatSystemSource Source;
+            public List<CombatTag> Tags;
             public CombatTarget Self;
 
             public int ResultStacks { get
@@ -38,7 +40,7 @@ namespace MetaCombatSystem.StatusManagement
         public bool IsActive => Stacks > 0;
 
 
-        public void ChangeStacks(int delta, ICombatSystemSource source, CombatTarget Self)
+        public void ChangeStacks(int delta, ICombatSystemSource source, CombatTarget Self, List<CombatTag> Tags)
         {
             StatusStackChange data = new()
             {
@@ -46,6 +48,7 @@ namespace MetaCombatSystem.StatusManagement
                 MaxStacks = HasMax ? MaxStacks : null,
                 Delta = delta,
                 Source = source,
+                Tags = Tags,
                 Self = Self,
             };
 

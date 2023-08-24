@@ -4,11 +4,12 @@ using System.Reflection;
 
 namespace MetaCombatSystem.Skills.Tests
 {
-    public class SkillEffectMonoTargetTests
+    public class SkillEffectTests
     {
         Skill skill;
-        MockSkillEffectMonoTarget skillEffect;
-        MockSkillEffectMonoTargetNoValidTarget noValidTargetsSkillEffect;
+        MockSkillEffect skillEffect;
+        MockSkillEffectNoValidTarget noValidTargetsSkillEffect;
+        SkillCast skillCast;
         CombatTarget skillTarget1;
         CombatTarget skillTarget2;
 
@@ -18,14 +19,13 @@ namespace MetaCombatSystem.Skills.Tests
             skill = new GameObject("skill").AddComponent<Skill>();
             skill.MinAndMaxNumberOfTargets = new(1, 2);
 
-            var awakeMethod = typeof(Skill).GetMethod("Awake", BindingFlags.NonPublic | BindingFlags.Instance);
-            awakeMethod.Invoke(skill, null);
+            skillCast = new(skill);
 
-            skillEffect = new GameObject("skill effect").AddComponent<MockSkillEffectMonoTarget>();
+            skillEffect = new GameObject("skill effect").AddComponent<MockSkillEffect>();
             skillEffect.FirstAndLastTargets = new(0, 1);
             skill.Components = new() { skillEffect };
             
-            noValidTargetsSkillEffect = new GameObject("no valid Targers").AddComponent<MockSkillEffectMonoTargetNoValidTarget>();
+            noValidTargetsSkillEffect = new GameObject("no valid Targers").AddComponent<MockSkillEffectNoValidTarget>();
             noValidTargetsSkillEffect.FirstAndLastTargets = new(0, 1);
 
             skillTarget1 = new GameObject("target 1").AddComponent<CombatTarget>();
@@ -45,11 +45,11 @@ namespace MetaCombatSystem.Skills.Tests
         [Test]
         public void EffectTriggerOnTargets()
         {
-            skillEffect.EffectTrigger(skillTarget1);
+            skillEffect.TriggerEffect(skillTarget1);
             Assert.AreEqual(1, skillEffect.TriggerCount, "EffectTrigger should be called once");
             Assert.AreEqual(skillTarget1, skillEffect.LastTriggeredTarget, "Last target should be the first target");
 
-            skillEffect.EffectTrigger(skillTarget2);
+            skillEffect.TriggerEffect(skillTarget2);
             Assert.AreEqual(2, skillEffect.TriggerCount, "EffectTrigger should be called twice");
             Assert.AreEqual(skillTarget2, skillEffect.LastTriggeredTarget, "Last target should be the second target");
         }
@@ -57,12 +57,12 @@ namespace MetaCombatSystem.Skills.Tests
         [Test]
         public void TriggerSkill()
         {
-            skill.AddTarget(skillTarget1);
-            skill.AddTarget(skillTarget2);
+            skillCast.SetTarget(skillTarget1, 0);
+            skillCast.SetTarget(skillTarget2, 1);
 
-            Assert.IsTrue(skill.ReadyToTrigger(), "Skill should be ready to trigger on two targets");
+            Assert.IsTrue(skill.ReadyToTrigger(skillCast), "Skill should be ready to trigger on two targets");
 
-            skill.Trigger();
+            skill.Trigger(skillCast);
 
             Assert.AreEqual(2, skillEffect.TriggerCount, "EffectTrigger should be called twice");
             Assert.AreSame(skillTarget2, skillEffect.LastTriggeredTarget, "Last target should be the second target");
@@ -86,14 +86,14 @@ namespace MetaCombatSystem.Skills.Tests
         {
             skill.Components.Add(noValidTargetsSkillEffect);
 
-            skill.AddTarget(skillTarget1);
-            skill.AddTarget(skillTarget2);
+            skillCast.SetTarget(skillTarget1, 0);
+            skillCast.SetTarget(skillTarget2, 1);
 
-            Assert.IsFalse(skill.ReadyToTrigger(), "Skill should not be ready to trigger on two targets");
+            Assert.IsFalse(skill.ReadyToTrigger(skillCast), "Skill should not be ready to trigger on two targets");
         }
 
         // Define a mock SkillEffectMonoTarget class for testing
-        private class MockSkillEffectMonoTarget : SkillEffectMonoTarget
+        private class MockSkillEffect : SkillEffect
         {
             public int TriggerCount = 0;
             public CombatTarget LastTriggeredTarget;
@@ -104,18 +104,23 @@ namespace MetaCombatSystem.Skills.Tests
                 LastTriggeredTarget = null;
             }
 
-            public override void EffectTrigger(CombatTarget target)
+            public override bool IsTargetValid(CombatTarget target)
+            {
+                return true;
+            }
+
+            public override void TriggerEffect(CombatTarget combatTarget)
             {
                 TriggerCount++;
-                LastTriggeredTarget = target;
+                LastTriggeredTarget = combatTarget;
             }
         }
 
-        private class MockSkillEffectMonoTargetNoValidTarget : SkillEffectMonoTarget
+        private class MockSkillEffectNoValidTarget : SkillEffect
         {
             public bool called = false;
 
-            public override void EffectTrigger(CombatTarget target)
+            public override void TriggerEffect(CombatTarget target)
             {
                 called = true;
             }
