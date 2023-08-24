@@ -25,10 +25,11 @@ namespace MetaCombatSystem.StatusManagement
             return result;
         }
 
-        public void ChangeStacks(StatusAlteration status, int delta, ICombatSystemSource source, List<CombatTag> Tags = null)
+        public StatusAlterationEffect.StatusStackChange ChangeStacks(StatusAlteration status, 
+            int delta, ICombatSystemSource source, List<CombatTag> Tags = null)
         {
             var statusEffect = GetStatus(status);
-            statusEffect.ChangeStacks(delta, source, Self, Tags);
+            return statusEffect.ChangeStacks(delta, source, Self, Tags);
         }
 
         public DataWatcher<StatusAlterationEffect.StatusStackChange> GetDataWatcher(StatusAlteration status)

@@ -40,7 +40,7 @@ namespace MetaCombatSystem.StatusManagement
         public bool IsActive => Stacks > 0;
 
 
-        public void ChangeStacks(int delta, ICombatSystemSource source, CombatTarget Self, List<CombatTag> Tags)
+        public StatusStackChange ChangeStacks(int delta, ICombatSystemSource source, CombatTarget Self, List<CombatTag> Tags)
         {
             StatusStackChange data = new()
             {
@@ -55,6 +55,7 @@ namespace MetaCombatSystem.StatusManagement
             data = DataWatcher.WatchData(data);
 
             Stacks = data.ResultStacks;
+            return data;
         }
     }
 }
